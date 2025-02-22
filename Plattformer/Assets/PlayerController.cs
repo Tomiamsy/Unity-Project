@@ -5,16 +5,13 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public Rigidbody2D rb;
     public float JumpForce = 10f;
-    public bool Bodenständig = false;
+    public bool Bodenständig = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        Bodenständig = true;
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -23,11 +20,11 @@ public class PlayerController : MonoBehaviour
         {
             
             Debug.Log("W &oder Space wurden gedrückt");
-            if (Bodenständig)
-            {
-                Bodenständig = false;
-                rb.AddForce(Vector3.up * JumpForce, ForceMode2D.Impulse);
-            }
+            
+            rb.AddForce(Vector3.up * JumpForce, ForceMode2D.Impulse);
+            
+                
+            
             
 
 
@@ -35,12 +32,16 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
+            Debug.Log("A wurde gedrückt");
 
+            rb.AddForce(Vector3.left * speed, ForceMode2D.Force);
 
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
+            Debug.Log("D wurde gedrückt");
 
+            rb.AddForce(Vector3.right * speed, ForceMode2D.Force);
         }
     }
 }

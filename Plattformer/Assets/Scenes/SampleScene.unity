@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b248eda07b7274db25210c953c9d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 100
   rb: {fileID: 0}
   JumpForce: 10
   "Bodenst\xE4ndig": 0
