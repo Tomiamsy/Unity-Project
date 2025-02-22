@@ -6,16 +6,19 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public float JumpForce = 10f;
     public bool Bodenständig = true;
+    private Quaternion NoRotation;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        NoRotation = Quaternion.identity;
     }
     
 
     // Update is called once per frame
     void Update()
     {
+        transform.rotation = NoRotation;
         if ((Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))))
         {
             
