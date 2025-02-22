@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 1551457716}
   - component: {fileID: 1551457718}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 1821513614}
   - component: {fileID: 1821513613}
   m_Layer: 0
-  m_Name: Static Sprite
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

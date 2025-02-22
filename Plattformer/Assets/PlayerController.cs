@@ -11,16 +11,24 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        Bodenständig = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if ((Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))))
         {
+            
             Debug.Log("W &oder Space wurden gedrückt");
-            Bodenständig = false;
-            rb.AddForce(Vector3.up * JumpForce, ForceMode2D.Impulse);
+            if (Bodenständig)
+            {
+                Bodenständig = false;
+                rb.AddForce(Vector3.up * JumpForce, ForceMode2D.Impulse);
+            }
+            
 
 
 
