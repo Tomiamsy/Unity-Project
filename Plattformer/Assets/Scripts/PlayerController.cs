@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f; //laufgeschwindigkeit des Spielers
+    public float Resistance = 0.9f;
     private bool MoveAllowL;
     private bool MoveAllowR;
     
@@ -163,6 +164,10 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKey(KeyCode.D) && !WallR) && MoveAllowR) // A gedrückt, nicht an einer rechten Wand, nicht von einer rechten
         {
             rb.linearVelocityX = 1f * speed;
+        }
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            rb.linearVelocityX = rb.linearVelocityX * Resistance;
         }
     }
 }
