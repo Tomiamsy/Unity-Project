@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.linearVelocityX = 0f;
                 }
+            Bodenständig = true;
             }
             if (collision.gameObject.CompareTag("Wall")) //Damit der Spieler an einer Wand runtersliden kann
             {
