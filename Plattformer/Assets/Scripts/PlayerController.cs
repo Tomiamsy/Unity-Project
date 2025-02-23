@@ -3,17 +3,27 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f; //laufgeschwindigkeit des Spielers
+    private bool MoveAllowL;
+    private bool MoveAllowR;
+    
     public Rigidbody2D rb; 
+    
     public float JumpKraft = 10f; // wie hoch man springt
+    public float WallJumpKraft = 10f; //wie weit man von einer Wand wegspringt bei einem Walljump
+    public float WallJumpHeight = 5f;
+
     public bool Bodenständig = false; // gibt an ob man Boden unter den Füßen hat, verhindert double Jumps
+    
     private Quaternion KeineRotation; 
+    
     public float WandSlideSpeed = 0.5f; // bestimmt wie schnell man die Wand runter rutscht
     public float WallSlideSide; //gibt an an welcher Seite von der Wand man sich befindet
 
-    public bool WallL; //sagt dem Input ob man gegen eine linke Wand rennt
-    public bool WallR;//sagt dem Input ob man gegen eine rechte Wand rennt
+    private bool WallL; //sagt dem Input ob man gegen eine linke Wand rennt
+    private bool WallR;//sagt dem Input ob man gegen eine rechte Wand rennt
 
-    public float SpeedMonitor;
+    public float SpeedMonitorX;
+    public float SpeedMonitorY;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,7 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         KeineRotation = Quaternion.identity;
-        rb.linearVelocityX = 0f;
+        
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -41,24 +51,39 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("gelandet");
+            
+                
             Bodenständig = true;
             rb.linearVelocityX = 0f;
+
+            MoveAllowL = true;
+            MoveAllowR = true;
+            
+            
+
+                
         }
-        if (collision.gameObject.CompareTag("Wall")) //amit der Spieler nicht nach oben sliden kann wird die Slide richtung auf nach unten gesetzt
+        if (collision.gameObject.CompareTag("Wall") && !collision.gameObject.CompareTag("Ground")) //amit der Spieler nicht nach oben sliden kann wird die Slide richtung auf nach unten gesetzt
         {
+            
+            Bodenständig = true;
             rb.linearVelocityY = -0.1f;
             rb.linearVelocityX = 0;
 
-            WallSlideSide = SpeedMonitor;
+            WallSlideSide = SpeedMonitorX;
             
             if (WallSlideSide < 0)
             {
                 WallL = true;
+                MoveAllowL = false;
+                MoveAllowR = true;
             }
             else if (WallSlideSide > 0)
             {
                 WallR = true;
+                MoveAllowR = false;
+                MoveAllowL = true;
+                Debug.Log("Rechte Wand");
             }
             else
             {
@@ -92,23 +117,50 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SpeedMonitor = rb.linearVelocityX;
+        SpeedMonitorX = rb.linearVelocityX;
+        SpeedMonitorY = rb.linearVelocityY;
+
+        if (SpeedMonitorY < 0)
+        {
+            MoveAllowL = true;
+            MoveAllowR = true;
+        }
 
         transform.rotation = KeineRotation;
         if ((Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))))
         {
-            Debug.Log("W &oder Space wurden gedrückt");
+            
             if (Bodenständig)
             {
-                rb.AddForce(Vector3.up * JumpKraft, ForceMode2D.Impulse);
-                Bodenständig = false;
+                if (WallL)
+                {
+                    rb.AddForce(Vector3.right * WallJumpKraft);
+                    rb.AddForce(Vector3.up * JumpKraft *WallJumpHeight, ForceMode2D.Impulse);
+                    Bodenständig = false;
+                    MoveAllowL = false;
+                    
+                }
+                if (WallR)
+                {
+                    rb.AddForce(Vector3.left * WallJumpKraft);
+                    rb.AddForce(Vector3.up * JumpKraft * WallJumpHeight, ForceMode2D.Impulse);
+                    Bodenständig = false;
+                    Debug.Log("rechts abstoßen");
+                    MoveAllowR = false;
+                }
+                else
+                {
+                    rb.AddForce(Vector3.up * JumpKraft, ForceMode2D.Impulse);
+                    Bodenständig = false;
+                }
+                    
             }
         }
-        if (Input.GetKey(KeyCode.A) && !WallL)
+        if ((Input.GetKey(KeyCode.A) && !WallL) && MoveAllowL) // A gedrückt, nicht an einer linken Wand, nicht von einer linken Wand
         {
             rb.linearVelocityX = -1f * speed;
         }
-        if (Input.GetKey(KeyCode.D) && !WallR)
+        if ((Input.GetKey(KeyCode.D) && !WallR) && MoveAllowR) // A gedrückt, nicht an einer rechten Wand, nicht von einer rechten
         {
             rb.linearVelocityX = 1f * speed;
         }
