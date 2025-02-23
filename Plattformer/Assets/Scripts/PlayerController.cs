@@ -4,47 +4,60 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
     public Rigidbody2D rb;
-    public float JumpForce = 10f;
-    public bool Bodenständig = true;
-    private Quaternion NoRotation;
+    public float JumpKraft = 10f;
+    public bool Bodenständig = false;
+    private Quaternion KeineRotation;
+    
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        NoRotation = Quaternion.identity;
+        KeineRotation = Quaternion.identity;
+        rb.linearVelocityX = 0f;
     }
-    
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Bodenständig = false;
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
 
+        }
+        else
+        {
+            rb.linearVelocityX = 0f;
+        }
+            
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("gelandet");
+        Bodenständig = true;
+        rb.linearVelocityX = 0f;
+    }
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = NoRotation;
+        transform.rotation = KeineRotation;
         if ((Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))))
         {
-            
             Debug.Log("W &oder Space wurden gedrückt");
-            
-            rb.AddForce(Vector3.up * JumpForce, ForceMode2D.Impulse);
-            
-                
-            
-            
-
-
-
+            if (Bodenständig)
+            {
+                rb.AddForce(Vector3.up * JumpKraft, ForceMode2D.Impulse);
+                Bodenständig = false;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("A wurde gedrückt");
-
-            rb.AddForce(Vector3.left * speed, ForceMode2D.Force);
-
+            rb.linearVelocityX = -1f * speed;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
-            Debug.Log("D wurde gedrückt");
-
-            rb.AddForce(Vector3.right * speed, ForceMode2D.Force);
+            rb.linearVelocityX = 1f * speed;
         }
     }
 }
