@@ -1001,6 +1001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  Resistance: 0.99
   rb: {fileID: 0}
   JumpKraft: 10
   WallJumpKraft: 300
