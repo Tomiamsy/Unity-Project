@@ -129,12 +129,12 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.rotation = KeineRotation;
-        if ((Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))))
+        if ((Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)))) //springen
         {
             
             if (Bodenst‰ndig)
             {
-                if (WallL)
+                if (WallL) //walljump von links
                 {
                     rb.AddForce(Vector3.right * WallJumpKraft);
                     rb.AddForce(Vector3.up * JumpKraft *WallJumpHeight, ForceMode2D.Impulse);
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
                     MoveAllowL = false;
                     
                 }
-                if (WallR)
+                if (WallR) //walljump von rechts
                 {
                     rb.AddForce(Vector3.left * WallJumpKraft);
                     rb.AddForce(Vector3.up * JumpKraft * WallJumpHeight, ForceMode2D.Impulse);
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("rechts abstoﬂen");
                     MoveAllowR = false;
                 }
-                else
+                else //normale Sprung
                 {
                     rb.AddForce(Vector3.up * JumpKraft, ForceMode2D.Impulse);
                     Bodenst‰ndig = false;
