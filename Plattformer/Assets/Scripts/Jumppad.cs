@@ -11,7 +11,7 @@ public class JumpPad : MonoBehaviour
         if (rb != null)
         {
             // Setze die vertikale Geschwindigkeit direkt (springt nach oben)
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce);
         }
     }
 }
