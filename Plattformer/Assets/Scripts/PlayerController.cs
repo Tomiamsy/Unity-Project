@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float WallJumpKraft = 10f; //wie weit man von einer Wand wegspringt bei einem Walljump
     public float WallJumpHeight = 5f;
 
-    public bool Bodenst‰ndig = false; // gibt an ob man Boden unter den F¸ﬂen hat, verhindert double Jumps
+    public bool Bodenst√§ndig = false; // gibt an ob man Boden unter den F√º√üen hat, verhindert double Jumps
     
     private Quaternion KeineRotation; 
     
@@ -38,13 +38,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Bodenst‰ndig = false;
+            Bodenst√§ndig = false;
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
             WallL = false;
             WallR = false;
-
+            Bodenst√§ndig = false;
         }
     }
     
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             
                 
-            Bodenst‰ndig = true;
+            Bodenst√§ndig = true;
             rb.linearVelocityX = 0f;
 
             MoveAllowL = true;
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall") && !collision.gameObject.CompareTag("Ground")) //amit der Spieler nicht nach oben sliden kann wird die Slide richtung auf nach unten gesetzt
         {
             
-            Bodenst‰ndig = true;
+            Bodenst√§ndig = true;
             rb.linearVelocityY = -0.1f;
             rb.linearVelocityX = 0;
 
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.linearVelocityX = 0f;
                 }
-            Bodenst‰ndig = true;
+            Bodenst√§ndig = true;
             }
             if (collision.gameObject.CompareTag("Wall")) //Damit der Spieler an einer Wand runtersliden kann
             {
@@ -132,13 +132,13 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)))) //springen
         {
             
-            if (Bodenst‰ndig)
+            if (Bodenst√§ndig)
             {
                 if (WallL) //walljump von links
                 {
                     rb.AddForce(Vector3.right * WallJumpKraft);
                     rb.AddForce(Vector3.up * JumpKraft *WallJumpHeight, ForceMode2D.Impulse);
-                    Bodenst‰ndig = false;
+                    Bodenst√§ndig = false;
                     MoveAllowL = false;
                     
                 }
@@ -146,23 +146,23 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.AddForce(Vector3.left * WallJumpKraft);
                     rb.AddForce(Vector3.up * JumpKraft * WallJumpHeight, ForceMode2D.Impulse);
-                    Bodenst‰ndig = false;
-                    Debug.Log("rechts abstoﬂen");
+                    Bodenst√§ndig = false;
+                    Debug.Log("rechts absto√üen");
                     MoveAllowR = false;
                 }
                 else //normale Sprung
                 {
                     rb.AddForce(Vector3.up * JumpKraft, ForceMode2D.Impulse);
-                    Bodenst‰ndig = false;
+                    Bodenst√§ndig = false;
                 }
                     
             }
         }
-        if ((Input.GetKey(KeyCode.A) && !WallL) && MoveAllowL) // A gedr¸ckt, nicht an einer linken Wand, nicht von einer linken Wand
+        if ((Input.GetKey(KeyCode.A) && !WallL) && MoveAllowL) // A gedr√ºckt, nicht an einer linken Wand, nicht von einer linken Wand
         {
             rb.linearVelocityX = -1f * speed;
         }
-        if ((Input.GetKey(KeyCode.D) && !WallR) && MoveAllowR) // A gedr¸ckt, nicht an einer rechten Wand, nicht von einer rechten
+        if ((Input.GetKey(KeyCode.D) && !WallR) && MoveAllowR) // A gedr√ºckt, nicht an einer rechten Wand, nicht von einer rechten
         {
             rb.linearVelocityX = 1f * speed;
         }
