@@ -445,6 +445,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8236734188968109031, guid: 416854400f86f3248a1f96e9fdf9bc53, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1278175336484511929, guid: 42037d872eda9f747b739b23420ba746, type: 3}
     - target: {fileID: 8312378651244047271, guid: 416854400f86f3248a1f96e9fdf9bc53, type: 3}
       propertyPath: m_Name
       value: jumppad 1
@@ -672,6 +676,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 21341841792238050, guid: bddf420ddc650674ab27bdb1fff76409, type: 3}
+      propertyPath: m_Size.x
+      value: 1.0086231
+      objectReference: {fileID: 0}
+    - target: {fileID: 21341841792238050, guid: bddf420ddc650674ab27bdb1fff76409, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0043115914
+      objectReference: {fileID: 0}
     - target: {fileID: 3268734439881919123, guid: bddf420ddc650674ab27bdb1fff76409, type: 3}
       propertyPath: m_Name
       value: Ground (1)
@@ -1186,6 +1198,14 @@ PrefabInstance:
     - target: {fileID: 4449869659175996968, guid: 2924f3881be521541b933458daf3fc67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8676449365289695633, guid: 2924f3881be521541b933458daf3fc67, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9832654
+      objectReference: {fileID: 0}
+    - target: {fileID: 8676449365289695633, guid: 2924f3881be521541b933458daf3fc67, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.008367285
       objectReference: {fileID: 0}
     - target: {fileID: 9170451242134782953, guid: 2924f3881be521541b933458daf3fc67, type: 3}
       propertyPath: m_Color.b
@@ -2594,6 +2614,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8236734188968109031, guid: 416854400f86f3248a1f96e9fdf9bc53, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -24825945235079808, guid: 5b5b16a0e9f196841b056705470426ee, type: 3}
     - target: {fileID: 8312378651244047271, guid: 416854400f86f3248a1f96e9fdf9bc53, type: 3}
       propertyPath: m_Name
       value: jumppad

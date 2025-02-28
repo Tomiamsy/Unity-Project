@@ -1,8 +1,13 @@
+using System.Threading;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f; //laufgeschwindigkeit des Spielers
+    public float SprintSpeed = 8f; // Sprintgeschwindigkeit 
+    private float NormalSpeed;
+    public float Stamina = 2000f; 
     public float Resistance = 0.9f;
     private bool MoveAllowL;
     private bool MoveAllowR;
@@ -32,7 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         KeineRotation = Quaternion.identity;
-        
+        NormalSpeed = speed;
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -122,6 +127,32 @@ public class PlayerController : MonoBehaviour
         SpeedMonitorX = rb.linearVelocityX;
         SpeedMonitorY = rb.linearVelocityY;
 
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Stamina > 0)
+        {
+            speed = SprintSpeed;
+            
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && Stamina > 0)
+        {
+            Stamina = Stamina - 2;
+        }
+        else if (!Input.GetKey(KeyCode.LeftShift) && Stamina < 2000)
+        {
+            Stamina = Stamina + 1;
+
+        }
+        if (Stamina < 10)
+        {
+            speed = NormalSpeed;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speed = NormalSpeed;
+        }
+
+   
         if (SpeedMonitorY < 0)
         {
             MoveAllowL = true;
